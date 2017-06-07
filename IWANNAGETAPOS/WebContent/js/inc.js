@@ -114,3 +114,56 @@ function loadOthers(type) {
 		});
 	}
 }
+
+function confirmOrder() {
+	if(m_ListLen == 0) {
+		alert("저장 할 주문이 없습니다.");
+		return;
+	}
+	
+	sqlQuery("INSERT INTO `order`(`totalprice`) VALUES('" + $('#obj_viewTotal').val() + "')");
+	var queryResult = sqlQuery("SELECT `no` FROM `order` ORDER BY `no` DESC LIMIT 0,1");
+	var newOrderNo = (queryResult.Count == 0) ? 0 : queryResult.Data[0].c0;
+	
+	$('.orderDetail').each(function() {
+		if($(this).find('#obj_itemChk').is(":checked") == true) {
+			sqlQuery("INSERT INTO `orderitem`(`orderNo`,`barcode`,`quantity`) VALUES('" + newOrderNo + "', '" + 
+					$(this).find('#obj_itemBarcode').val() + "', '" + 
+					$(this).find('#obj_itemQuan').val() + "')");
+		}
+	});
+	
+	clearList();
+}
+
+function clearList() {
+	$('.orderDetail').each(function() {
+		if($(this).index() == 1) {
+			$(this).find('[type=text],[type=hidden]').each(function() {
+				$(this).val("");
+			});
+			$(this).find('[type=checkbox]').prop('checked',false);
+			return true;
+		}
+		$(this).remove();
+	});
+	
+	m_ListLen = 0;
+	calcOrderTotal();
+}
+
+function showOrderHistory() {
+	window.open('orderHistory.jsp',"","width=1280,height=600");
+}
+
+function showAdminPage() {
+	window.open('AdminMain.jsp',"","width=500,height=600");
+}
+
+function showItemSearch() {
+	window.open('itemSearch.jsp',"","width=400,height=300");
+}
+
+function logout() {
+	document.location.href = 'login.jsp';
+}

@@ -11,8 +11,8 @@
 <title>Insert title here</title>
 </head>
 
-<script type="text/javascript" src="sql.js"></script>
-<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/sql.js"></script>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script>
 var m_ListLen = 0;
 var m_DetailLen = 0;
