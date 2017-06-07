@@ -76,8 +76,9 @@ if(request.getMethod().equals("POST")) {
 
 <script>
 function ItemSrch() {
-	
+	sqlQuery()
 }
+
 function ItemUdt() {
 	sqlQuery("UPDATE item SET barcode='" + $(document).find('#obj_barcode').val() + 
 			"', name='" + $(document).find('#obj_name').val() + 
